@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import All from "./All";
 import Star from "./Star";
+import SelecBar from "./SelectBar";
 
 function App() {
   let [move, setmove] = useState(0);
@@ -17,6 +18,8 @@ function App() {
   };
   return (
     <div>
+      <Bar></Bar>
+
       <Routes>
         <Route path="/" element={<Card />} />
         <Route path="/all" element={<All />} />
@@ -63,5 +66,8 @@ const Footer = styled.div`
   div {
   }
 `;
-
+const Bar = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 export default App;

@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-
+import SelecBar from "./SelectBar";
 function Card() {
   let [items, setitems] = useState([]);
   useEffect(() => {
@@ -14,81 +14,157 @@ function Card() {
   }, []);
   const navigate = useNavigate();
 
-  let [countstar, setcountstar] = useState([true, true, true]);
-  let [bookmarkstar, setbookmark] = useState([]);
+  let [countstar, setcountstar] = useState([""]);
+  let [selectsidoName, selectsetsidoName] = useState();
+  let [menu, setmenu] = useState("전국");
 
+  const all = items.map((a, i) => {
+    console.log(a.sidoName);
+    if (menu == "전국") {
+      return (
+        <Container>
+          <div key={Math.floor(Math.random() * 100000)}>
+            {a.pm10Grade === "1" ? (
+              <div className="bgcolor1">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                  <button
+                    onClick={() => {
+                      let copy = [...countstar];
+                      copy[i] = !copy[i];
+                      setcountstar(copy);
+                    }}
+                  >
+                    {countstar[i] ? <p>★</p> : <p>☆</p>}
+                    {countstar[i]}
+                  </button>
+                </div>
+                <p>{a.sidoName}</p>
+
+                <p>{a.dataTime}</p>
+                <img src="./좋음.png" style={{ width: "20px" }} />
+                <p>좋음</p>
+              </div>
+            ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
+              <div className="bgcolor2">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                  <button
+                    onClick={() => {
+                      let copy = [...countstar];
+                      copy[i] = !copy[i];
+                      setcountstar(copy);
+                    }}
+                  >
+                    {countstar[i] ? <p>★</p> : <p>☆</p>}
+                    {countstar[i]}
+                  </button>
+                </div>
+                <p>{a.sidoName}</p>
+                <p>{a.dataTime}</p>
+                <img src="./보통.png" style={{ width: "20px" }} />
+                <p>보통</p>
+              </div>
+            ) : (
+              <div className="bgcolor3">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                  <button
+                    onClick={() => {
+                      let copy = [...countstar];
+                      copy[i] = !copy[i];
+                      setcountstar(copy);
+                    }}
+                  >
+                    {countstar[i] ? <p>★</p> : <p>☆</p>}
+                    {countstar[i]}
+                  </button>
+                </div>
+                <p>{a.sidoName}</p>
+                <p>{a.dataTime}</p>
+                <img src="./나쁨.png" style={{ width: "20px" }} />
+                <p>나쁨</p>
+              </div>
+            )}
+          </div>
+        </Container>
+      );
+    } else if (a.sidoName == menu) {
+      return (
+        <Container>
+          <div key={Math.floor(Math.random() * 100000)}>
+            {a.pm10Grade === "1" ? (
+              <div className="bgcolor1">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                  <button
+                    onClick={() => {
+                      let copy = [...countstar];
+                      copy[i] = !copy[i];
+                      setcountstar(copy);
+                    }}
+                  >
+                    {countstar[i] ? <p>★</p> : <p>☆</p>}
+                    {countstar[i]}
+                  </button>
+                </div>
+                <p>{a.sidoName}</p>
+
+                <p>{a.dataTime}</p>
+                <img src="./좋음.png" style={{ width: "20px" }} />
+                <p>좋음</p>
+              </div>
+            ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
+              <div className="bgcolor2">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                  <button
+                    onClick={() => {
+                      let copy = [...countstar];
+                      copy[i] = !copy[i];
+                      setcountstar(copy);
+                    }}
+                  >
+                    {countstar[i] ? <p>★</p> : <p>☆</p>}
+                    {countstar[i]}
+                  </button>
+                </div>
+                <p>{a.sidoName}</p>
+                <p>{a.dataTime}</p>
+                <img src="./보통.png" style={{ width: "20px" }} />
+                <p>보통</p>
+              </div>
+            ) : (
+              <div className="bgcolor3">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                  <button
+                    onClick={() => {
+                      let copy = [...countstar];
+                      copy[i] = !copy[i];
+                      setcountstar(copy);
+                    }}
+                  >
+                    {countstar[i] ? <p>★</p> : <p>☆</p>}
+                    {countstar[i]}
+                  </button>
+                </div>
+                <p>{a.sidoName}</p>
+                <p>{a.dataTime}</p>
+                <img src="./나쁨.png" style={{ width: "20px" }} />
+                <p>나쁨</p>
+              </div>
+            )}
+          </div>
+        </Container>
+      );
+    }
+  });
   return (
-    <Container>
-      {items &&
-        items.map((a, i) => {
-          return (
-            <div key={Math.floor(Math.random() * 100000)}>
-              {a.pm10Grade === "1" ? (
-                <div className="bgcolor1">
-                  <div className="header">
-                    <p>{a.stationName}</p>
-                    <button
-                      onClick={() => {
-                        let copy = [...countstar];
-                        copy[i] = !copy[i];
-                        setcountstar(copy);
-                      }}
-                    >
-                      {countstar[i] ? <p>☆</p> : <p>★</p>}
-                      {countstar[i]}
-                    </button>
-                  </div>
-                  <p>{a.sidoName}</p>
-
-                  <p>{a.dataTime}</p>
-                  <img src="./좋음.png" style={{ width: "20px" }} />
-                  <p>좋음</p>
-                </div>
-              ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
-                <div className="bgcolor2">
-                  <div className="header">
-                    <p>{a.stationName}</p>
-                    <button
-                      onClick={() => {
-                        let copy = [...countstar];
-                        copy[i] = !copy[i];
-                        setcountstar(copy);
-                      }}
-                    >
-                      {countstar[i] ? <p>☆</p> : <p>★</p>}
-                      {countstar[i]}
-                    </button>
-                  </div>
-                  <p>{a.sidoName}</p>
-                  <p>{a.dataTime}</p>
-                  <img src="./보통.png" style={{ width: "20px" }} />
-                  <p>보통</p>
-                </div>
-              ) : (
-                <div className="bgcolor3">
-                  <div className="header">
-                    <p>{a.stationName}</p>
-                    <button
-                      onClick={() => {
-                        let copy = [...countstar];
-                        copy[i] = !copy[i];
-                        setcountstar(copy);
-                      }}
-                    >
-                      {countstar[i] ? <p>☆</p> : <p>★</p>}
-                      {countstar[i]}
-                    </button>
-                  </div>
-                  <p>{a.sidoName}</p>
-                  <p>{a.dataTime}</p>
-                  <img src="./나쁨.png" style={{ width: "20px" }} />
-                  <p>나쁨</p>
-                </div>
-              )}
-            </div>
-          );
-        })}
-    </Container>
+    <div>
+      <SelecBar menu={menu} setmenu={setmenu} />
+      {all}
+    </div>
   );
 }
 
