@@ -13,9 +13,8 @@ function Card() {
     });
   }, []);
   const navigate = useNavigate();
-  let [star, setstar] = useState(true);
-  let [star1, setstar1] = useState(true);
-  let [star2, setstar2] = useState(true);
+
+  let [countstar, setcountstar] = useState([true, true, true]);
   let [bookmarkstar, setbookmark] = useState([]);
 
   return (
@@ -30,10 +29,13 @@ function Card() {
                     <p>{a.stationName}</p>
                     <button
                       onClick={() => {
-                        setstar(!star);
+                        let copy = [...countstar];
+                        copy[i] = !copy[i];
+                        setcountstar(copy);
                       }}
                     >
-                      {star ? <p>☆</p> : <p>★</p>}
+                      {countstar[i] ? <p>☆</p> : <p>★</p>}
+                      {countstar[i]}
                     </button>
                   </div>
                   <p>{a.sidoName}</p>
@@ -48,10 +50,13 @@ function Card() {
                     <p>{a.stationName}</p>
                     <button
                       onClick={() => {
-                        setstar1(!star1);
+                        let copy = [...countstar];
+                        copy[i] = !copy[i];
+                        setcountstar(copy);
                       }}
                     >
-                      {star1 ? <p>☆</p> : <p>★</p>}
+                      {countstar[i] ? <p>☆</p> : <p>★</p>}
+                      {countstar[i]}
                     </button>
                   </div>
                   <p>{a.sidoName}</p>
@@ -65,10 +70,13 @@ function Card() {
                     <p>{a.stationName}</p>
                     <button
                       onClick={() => {
-                        setstar2(!star2);
+                        let copy = [...countstar];
+                        copy[i] = !copy[i];
+                        setcountstar(copy);
                       }}
                     >
-                      {star2 ? <p>☆</p> : <p>★</p>}
+                      {countstar[i] ? <p>☆</p> : <p>★</p>}
+                      {countstar[i]}
                     </button>
                   </div>
                   <p>{a.sidoName}</p>
