@@ -1,6 +1,6 @@
 import React from "react";
 
-function star() {
+function star({}) {
   return <div>dd2</div>;
 }
 

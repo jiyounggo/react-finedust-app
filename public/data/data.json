@@ -925,7 +925,7 @@
           "coGrade": "1",
           "no2Value": "0.014",
           "stationName": "강북구",
-          "pm10Grade": "1",
+          "pm10Grade": "3",
           "o3Value": "0.037"
         },
         {
@@ -975,7 +975,7 @@
           "coGrade": "1",
           "no2Value": "0.009",
           "stationName": "노원구",
-          "pm10Grade": "1",
+          "pm10Grade": "4",
           "o3Value": "0.040"
         },
         {

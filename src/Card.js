@@ -37,6 +37,7 @@ function Card() {
                   >
                     {countstar[i] ? <p>★</p> : <p>☆</p>}
                     {countstar[i]}
+                    {/* {countstar[i]==true? :null} */}
                   </button>
                 </div>
                 <p>{a.sidoName}</p>
@@ -162,6 +163,7 @@ function Card() {
   });
   return (
     <div>
+      {/* <div>{tab}</div> */}
       <SelecBar menu={menu} setmenu={setmenu} />
       {all}
     </div>

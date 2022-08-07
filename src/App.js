@@ -8,6 +8,7 @@ import Card from "./Card";
 import All from "./All";
 import Star from "./Star";
 import SelecBar from "./SelectBar";
+import Tab from "./Tab.js";
 
 function App() {
   let [move, setmove] = useState(0);
@@ -18,14 +19,12 @@ function App() {
   };
   return (
     <div>
+      <Tab></Tab>
       <Bar></Bar>
-
       <Routes>
-        <Route path="/" element={<Card />} />
-        <Route path="/all" element={<All />} />
-        <Route path="/star" element={<Star />} />
+        <Route path="/" />
       </Routes>
-      <Footer>
+      {/* <Footer>
         <div
           onClick={() => {
             movepage("");
@@ -47,7 +46,7 @@ function App() {
         >
           즐겨찾기
         </div>
-      </Footer>
+      </Footer> */}
     </div>
   );
 }
