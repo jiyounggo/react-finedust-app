@@ -4,11 +4,13 @@ import { Routes, Route } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import Card from "./Card";
+import Card from "./AllLocation";
 import All from "./All";
 import Star from "./Star";
 import SelecBar from "./SelectBar";
 import Tab from "./Tab.js";
+import Register from "./Register";
+import Login from "./Login";
 
 function App() {
   let [move, setmove] = useState(0);
@@ -20,33 +22,10 @@ function App() {
   return (
     <div>
       <Tab></Tab>
-      <Bar></Bar>
+
       <Routes>
-        <Route path="/" />
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
-      {/* <Footer>
-        <div
-          onClick={() => {
-            movepage("");
-          }}
-        >
-          내지역보기
-        </div>
-        <div
-          onClick={() => {
-            movepage("all");
-          }}
-        >
-          전체시도보기
-        </div>
-        <div
-          onClick={() => {
-            movepage("star");
-          }}
-        >
-          즐겨찾기
-        </div>
-      </Footer> */}
     </div>
   );
 }

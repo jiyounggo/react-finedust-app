@@ -5,6 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import SelecBar from "./SelectBar";
+import Star from "./Star";
 function Card() {
   let [items, setitems] = useState([]);
   useEffect(() => {
@@ -37,7 +38,6 @@ function Card() {
                   >
                     {countstar[i] ? <p>★</p> : <p>☆</p>}
                     {countstar[i]}
-                    {/* {countstar[i]==true? :null} */}
                   </button>
                 </div>
                 <p>{a.sidoName}</p>
