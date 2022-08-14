@@ -4,21 +4,28 @@ import { Routes, Route } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import Card from "./AllLocation";
-import All from "./All";
-import Star from "./Star";
-import SelecBar from "./SelectBar";
 import Tab from "./Tab.js";
-import Register from "./Register";
 import Login from "./Login";
-
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "./redux/user";
 function App() {
   let [move, setmove] = useState(0);
-  const navigate = useNavigate();
-  const movepage = (page) => {
-    setmove(page);
-    navigate(`/${page}`);
-  };
+  let dispatch = useDispatch();
+  let user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(
+      loginUser({
+        id: localStorage.getItem("ID"),
+        pw: localStorage.getItem("PW"),
+        sidoName: "전국",
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
   return (
     <div>
       <Tab></Tab>
