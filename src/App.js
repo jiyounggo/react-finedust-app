@@ -1,15 +1,13 @@
-import "./App.css";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import Tab from "./Tab.js";
-import Login from "./Login";
+import Login from "./pages/Login";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "./redux/user";
 function App() {
-  let [move, setmove] = useState(0);
   let dispatch = useDispatch();
   let user = useSelector((state) => state.user);
 
@@ -29,7 +27,6 @@ function App() {
   return (
     <div>
       <Tab></Tab>
-
       <Routes>
         <Route path="/login" element={<Login />}></Route>
       </Routes>

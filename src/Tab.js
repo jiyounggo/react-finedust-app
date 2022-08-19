@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Nav } from "react-bootstrap";
-import Card from "./AllLocation";
-import Star from "./Star";
+import AllLocation from "./pages/AllLocation";
+import BookMark from "./pages/BookMark";
+import MyLocation from "./pages/MyLocation";
 function Tab() {
   let [탭, 탭변경] = useState(0);
 
@@ -49,13 +50,13 @@ function Tab() {
 
 function Tabcontent(props) {
   if (props.탭 == 0) {
-    return <div>내지역</div>;
+    return <MyLocation />;
   }
   if (props.탭 == 1) {
-    return <Card />;
+    return <AllLocation />;
   }
   if (props.탭 == 2) {
-    return <Star />;
+    return <BookMark />;
   }
 }
 const Tabs = styled.div``;

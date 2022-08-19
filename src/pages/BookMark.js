@@ -1,7 +1,7 @@
 import React from "react";
 
 function star({ countstar }) {
-  return <div>{countstar}</div>;
+  return <div>{countstar}DD</div>;
 }
 
 export default star;

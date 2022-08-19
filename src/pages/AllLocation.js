@@ -1,11 +1,10 @@
-import "./App.css";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import SelecBar from "./SelectBar";
-import Star from "./Star";
+import SelecBar from "../SelectBar";
+import BookMark from "./BookMark";
 function Card() {
   let [items, setitems] = useState([]);
   useEffect(() => {
@@ -163,8 +162,7 @@ function Card() {
   });
   return (
     <div>
-      {/* <div>{tab}</div> */}
-      <SelecBar menu={menu} setmenu={setmenu} />
+      <SelecBar setmenu={setmenu} />
       {all}
     </div>
   );

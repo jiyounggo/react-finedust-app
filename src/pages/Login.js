@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { sidoName } from "./redux/user";
+import { sidoName } from "../redux/user";
 function Login() {
   const [Email, setEmail] = useState("");
   const [PW, setPW] = useState("");
