@@ -56,10 +56,36 @@ function MyLocation() {
   }, []);
 
   let [items, setitems] = useState([]);
-  let [countstar, setcountstar] = useState([""]);
+  let [dddata, setData] = useState("");
+  let [siba, setsiba] = useState();
+
+  // const getdata = () => {
+  //   const likeList = [
+  //     { sido: "서울", station: ["동대문구", "서초구"] },
+  //     { sido: "대구", station: ["본동"] },
+  //   ];
+
+  //   {
+  //     likeList.map((item) => {
+  //       setData(item.station);
+  //     });
+  //   }
+
+  //   let Station = [];
+  //   for (const dong of dddata) {
+  //     Station.push(...items.filter((el) => el.stationName === dong));
+  //   }
+  //   console.log(Station);
+  // };
+  let [menu, setmenu] = useState(dongName);
+  console.log(menu);
+  const selectoption = (e) => {
+    setmenu(e.target.value);
+    console.log(menu);
+  };
 
   const all = items.map((a, i) => {
-    if (a.sidoName == currentLocation && a.stationName == dongName)
+    if (a.stationName == dongName) {
       return (
         <Container>
           <div key={Math.floor(Math.random() * 100000)}>
@@ -98,17 +124,77 @@ function MyLocation() {
           </div>
         </Container>
       );
+    } else if (a.stationName == menu) {
+      return (
+        <Container>
+          <div key={Math.floor(Math.random() * 100000)}>
+            {a.pm10Grade === "1" ? (
+              <div className="bgcolor1">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                </div>
+                <p>{a.sidoName}</p>
+
+                <p>{a.dataTime}</p>
+                <img src="./좋음.png" style={{ width: "20px" }} />
+                <p>좋음</p>
+              </div>
+            ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
+              <div className="bgcolor2">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                </div>
+                <p>{a.sidoName}</p>
+                <p>{a.dataTime}</p>
+                <img src="./보통.png" style={{ width: "20px" }} />
+                <p>보통</p>
+              </div>
+            ) : (
+              <div className="bgcolor3">
+                <div className="header">
+                  <p>{a.stationName}</p>
+                </div>
+                <p>{a.sidoName}</p>
+                <p>{a.dataTime}</p>
+                <img src="./나쁨.png" style={{ width: "20px" }} />
+                <p>나쁨</p>
+              </div>
+            )}
+          </div>
+        </Container>
+      );
+    }
   });
+
+  let lestation = [];
+
+  {
+    items.map((a) => {
+      {
+        a.sidoName == currentLocation && lestation.push(a.stationName);
+      }
+    });
+  }
+
+  // for (const gu of items) {
+  //   console.log(gu.stationName);
+  //   lestation.push(.filter((el) => el.stationName === gu.stationName));
+  // }
+  // console.log(lestation);
 
   return (
     <div>
       <select>
         <option value="동이름">{currentLocation}</option>
       </select>
-      <select>
-        <option value="전국">{dongName}</option>
-        <option value="강원">강원</option>
+
+      <select value={dongName} onChange={selectoption}>
+        {/* <option value={dongName}>{dongName}</option> */}
+        {lestation.map((item) => (
+          <option key={item.stationName}>{item}</option>
+        ))}
       </select>
+
       {all}
     </div>
   );
