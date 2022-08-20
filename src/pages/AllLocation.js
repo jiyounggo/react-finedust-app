@@ -19,7 +19,6 @@ function Card() {
   let [menu, setmenu] = useState("전국");
 
   const all = items.map((a, i) => {
-    console.log(a.sidoName);
     if (menu == "전국") {
       return (
         <Container>

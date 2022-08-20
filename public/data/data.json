@@ -915,7 +915,7 @@
           "pm10Value": "14",
           "khaiGrade": "2",
           "pm25Value": "7",
-          "sidoName": "서울",
+          "sidoName": "대구",
           "no2Flag": null,
           "no2Grade": "1",
           "o3Flag": null,
@@ -924,7 +924,7 @@
           "dataTime": "2022-05-09 10:00",
           "coGrade": "1",
           "no2Value": "0.014",
-          "stationName": "강북구",
+          "stationName": "대봉동",
           "pm10Grade": "3",
           "o3Value": "0.037"
         },
