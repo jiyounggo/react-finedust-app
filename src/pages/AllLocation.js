@@ -7,17 +7,41 @@ import SelecBar from "../SelectBar";
 import BookMark from "./BookMark";
 function Card() {
   let [items, setitems] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:3000/data/data.json").then((response) => {
-      setitems(response.data.response.body.items);
-    });
-  }, []);
+  let [menu, setmenu] = useState("전국");
+
+  const search = async () => {
+    const params = {
+      serviceKey:
+        "9cmNfRnvaOrobZwNoLxFPSrb2VW7xsR7ZGFhTGcMw38y2KaES2xSem4QwOPAH4UKP8DhCFEyoE59IDyqnSUgNQ%3D%3D",
+      returnType: "json",
+      numOfRows: 15000,
+      pageNo: 1,
+      sidoName: `${menu}`,
+      ver: 1.0,
+    };
+
+    await axios
+      .get(
+        `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${params.serviceKey}&returnType=${params.returnType}&numOfRows=${params.numOfRows}&pageNo=${params.pageNo}&sidoName=${params.sidoName}&ver=${params.ver}`
+      )
+      .then((response) => {
+        console.log(response.data.response.body.items);
+        setitems(response.data.response.body.items);
+        console.log(items);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const navigate = useNavigate();
 
   let [countstar, setcountstar] = useState([""]);
   let [selectsidoName, selectsetsidoName] = useState();
-  let [menu, setmenu] = useState("전국");
-
+  useEffect(() => {
+    console.log(menu);
+    search();
+  }, []);
   const all = items.map((a, i) => {
     if (menu == "전국") {
       return (
@@ -161,7 +185,7 @@ function Card() {
   });
   return (
     <div>
-      <SelecBar setmenu={setmenu} />
+      <SelecBar search={search} setmenu={setmenu} />
       {all}
     </div>
   );

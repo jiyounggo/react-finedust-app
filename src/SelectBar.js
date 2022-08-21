@@ -1,6 +1,6 @@
 import React from "react";
 import { Suspense, useEffect, useState } from "react";
-function SelecBar({ setmenu }) {
+function SelecBar({ setmenu, search }) {
   const selectoption = (e) => {
     setmenu(e.target.value);
   };

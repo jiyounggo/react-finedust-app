@@ -77,15 +77,15 @@ function MyLocation() {
   //   }
   //   console.log(Station);
   // };
-  let [menu, setmenu] = useState(dongName);
-  console.log(menu);
   const selectoption = (e) => {
     setmenu(e.target.value);
     console.log(menu);
   };
+  let [menu, setmenu] = useState(dongName);
+  console.log(dongName);
 
   const all = items.map((a, i) => {
-    if (a.stationName == dongName) {
+    if (a.stationName == menu) {
       return (
         <Container>
           <div key={Math.floor(Math.random() * 100000)}>
@@ -124,7 +124,7 @@ function MyLocation() {
           </div>
         </Container>
       );
-    } else if (a.stationName == menu) {
+    } else if (menu == null) {
       return (
         <Container>
           <div key={Math.floor(Math.random() * 100000)}>
@@ -166,6 +166,7 @@ function MyLocation() {
     }
   });
 
+  //select dong
   let lestation = [];
 
   {
@@ -176,12 +177,7 @@ function MyLocation() {
     });
   }
 
-  // for (const gu of items) {
-  //   console.log(gu.stationName);
-  //   lestation.push(.filter((el) => el.stationName === gu.stationName));
-  // }
-  // console.log(lestation);
-
+  const [selectedStationValue, setSelectedStationValue] = useState(dongName);
   return (
     <div>
       <select>
@@ -189,7 +185,7 @@ function MyLocation() {
       </select>
 
       <select value={dongName} onChange={selectoption}>
-        {/* <option value={dongName}>{dongName}</option> */}
+        <option value={dongName}>{dongName}</option>
         {lestation.map((item) => (
           <option key={item.stationName}>{item}</option>
         ))}
