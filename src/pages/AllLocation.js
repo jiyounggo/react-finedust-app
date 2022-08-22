@@ -9,6 +9,10 @@ function Card() {
   let [items, setitems] = useState([]);
   let [menu, setmenu] = useState("전국");
 
+  useEffect(() => {
+    search();
+  }, []);
+
   const search = async () => {
     const params = {
       serviceKey:
@@ -25,9 +29,7 @@ function Card() {
         `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${params.serviceKey}&returnType=${params.returnType}&numOfRows=${params.numOfRows}&pageNo=${params.pageNo}&sidoName=${params.sidoName}&ver=${params.ver}`
       )
       .then((response) => {
-        console.log(response.data.response.body.items);
         setitems(response.data.response.body.items);
-        console.log(items);
       })
       .catch((error) => {
         console.log(error);
@@ -38,10 +40,7 @@ function Card() {
 
   let [countstar, setcountstar] = useState([""]);
   let [selectsidoName, selectsetsidoName] = useState();
-  useEffect(() => {
-    console.log(menu);
-    search();
-  }, []);
+
   const all = items.map((a, i) => {
     if (menu == "전국") {
       return (

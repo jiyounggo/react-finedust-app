@@ -1,21 +1,46 @@
 /*global kakao*/
 import React, { useEffect, useState } from "react";
-import { Location } from "../api/location";
-// import { kakaoAddress } from "../api/kakaoAdress";
-import { current } from "@reduxjs/toolkit";
-import ALLlocation from "./AllLocation";
 import axios from "axios";
 import styled from "@emotion/styled";
+
 function MyLocation() {
-  const [lat, setlat] = useState();
-  const [lng, setlng] = useState();
   const [location, settLocation] = useState("");
-  const [currentLocation, setcurrentLocation] = useState(""); //구
+  const [currentLocation, setcurrentLocation] = useState(""); //현재 지역
   const [dongName, setdongName] = useState(""); // 동
+  let [items, setitems] = useState([]);
+  let [menu, setmenu] = useState(dongName);
 
   useEffect(() => {
+    search();
     geolocation();
   }, []);
+
+  const selectoption = (e) => {
+    setmenu(e.target.value);
+  };
+
+  const search = async () => {
+    const params = {
+      serviceKey:
+        "9cmNfRnvaOrobZwNoLxFPSrb2VW7xsR7ZGFhTGcMw38y2KaES2xSem4QwOPAH4UKP8DhCFEyoE59IDyqnSUgNQ%3D%3D",
+      returnType: "json",
+      numOfRows: 150000,
+      pageNo: 1,
+      sidoName: `${currentLocation}`,
+      ver: 1.0,
+    };
+
+    await axios
+      .get(
+        `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${params.serviceKey}&returnType=${params.returnType}&numOfRows=${params.numOfRows}&pageNo=${params.pageNo}&sidoName=${params.sidoName}&ver=${params.ver}`
+      )
+      .then((response) => {
+        setitems(response.data.response.body.items);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const geolocation = () => {
     const onGeoOk = (position) => {
@@ -25,64 +50,21 @@ function MyLocation() {
         longitude,
       });
     };
-
     const onGeoError = () => {
-      console.log("Er");
+      console.log("tqtq");
     };
-
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
   };
-
-  //kakao
-
+  //kakao address
   var geocoder = new kakao.maps.services.Geocoder();
 
   var callback = function (result, status) {
     if (status === kakao.maps.services.Status.OK) {
       setcurrentLocation(result[0].region_1depth_name.slice(0, 2));
       setdongName(result[0].region_3depth_name);
-      console.log(result[0]);
-      console.log(dongName);
-      console.log(currentLocation);
     }
   };
-
   geocoder.coord2RegionCode(location.longitude, location.latitude, callback);
-
-  useEffect(() => {
-    axios.get("http://localhost:3000/data/data.json").then((response) => {
-      setitems(response.data.response.body.items);
-    });
-  }, []);
-
-  let [items, setitems] = useState([]);
-  let [dddata, setData] = useState("");
-  let [siba, setsiba] = useState();
-
-  // const getdata = () => {
-  //   const likeList = [
-  //     { sido: "서울", station: ["동대문구", "서초구"] },
-  //     { sido: "대구", station: ["본동"] },
-  //   ];
-
-  //   {
-  //     likeList.map((item) => {
-  //       setData(item.station);
-  //     });
-  //   }
-
-  //   let Station = [];
-  //   for (const dong of dddata) {
-  //     Station.push(...items.filter((el) => el.stationName === dong));
-  //   }
-  //   console.log(Station);
-  // };
-  const selectoption = (e) => {
-    setmenu(e.target.value);
-    console.log(menu);
-  };
-  let [menu, setmenu] = useState(dongName);
-  console.log(dongName);
 
   const all = items.map((a, i) => {
     if (a.stationName == menu) {
@@ -95,7 +77,6 @@ function MyLocation() {
                   <p>{a.stationName}</p>
                 </div>
                 <p>{a.sidoName}</p>
-
                 <p>{a.dataTime}</p>
                 <img src="./좋음.png" style={{ width: "20px" }} />
                 <p>좋음</p>
@@ -165,7 +146,6 @@ function MyLocation() {
       );
     }
   });
-
   //select dong
   let lestation = [];
 
@@ -177,20 +157,17 @@ function MyLocation() {
     });
   }
 
-  const [selectedStationValue, setSelectedStationValue] = useState(dongName);
   return (
     <div>
       <select>
         <option value="동이름">{currentLocation}</option>
       </select>
 
-      <select value={dongName} onChange={selectoption}>
-        <option value={dongName}>{dongName}</option>
+      <select onChange={selectoption}>
         {lestation.map((item) => (
           <option key={item.stationName}>{item}</option>
         ))}
       </select>
-
       {all}
     </div>
   );

@@ -1,6 +1,29 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+export const search = async (menu) => {
+  const params = {
+    serviceKey:
+      "9cmNfRnvaOrobZwNoLxFPSrb2VW7xsR7ZGFhTGcMw38y2KaES2xSem4QwOPAH4UKP8DhCFEyoE59IDyqnSUgNQ%3D%3D",
+    returnType: "json",
+    numOfRows: 1500,
+    pageNo: 1,
+    sidoName: `${menu}`,
+    ver: 1.0,
+  };
+
+  await axios
+    .get(
+      `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${params.serviceKey}&returnType=${params.returnType}&numOfRows=${params.numOfRows}&pageNo=${params.pageNo}&sidoName=${params.sidoName}&ver=${params.ver}`
+    )
+    .then((response) => {
+      return response.data.response.body.items;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const GetDatas = async (sido) => {
   const [search, setSearch] = useState([]);
 
