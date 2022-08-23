@@ -1,73 +1,87 @@
 /*global kakao*/
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
+const geocoder = new kakao.maps.services.Geocoder();
 
 function MyLocation() {
   const [location, settLocation] = useState("");
   const [currentLocation, setcurrentLocation] = useState(""); //현재 지역
   const [dongName, setdongName] = useState(""); // 동
-  let [items, setitems] = useState([]);
-  let [menu, setmenu] = useState(dongName);
-
-  useEffect(() => {
-    search();
-    geolocation();
-  }, []);
+  const [items, setitems] = useState([]);
+  const [menu, setmenu] = useState("전체");
 
   const selectoption = (e) => {
     setmenu(e.target.value);
+    console.log(menu);
   };
 
-  const search = async () => {
+  // kakao address
+  const kakaoPositionSearch = useCallback(async (si, dong) => {
     const params = {
       serviceKey:
         "9cmNfRnvaOrobZwNoLxFPSrb2VW7xsR7ZGFhTGcMw38y2KaES2xSem4QwOPAH4UKP8DhCFEyoE59IDyqnSUgNQ%3D%3D",
       returnType: "json",
       numOfRows: 150000,
       pageNo: 1,
-      sidoName: `${currentLocation}`,
+      sidoName: `${si}`,
       ver: 1.0,
     };
-
     await axios
       .get(
         `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${params.serviceKey}&returnType=${params.returnType}&numOfRows=${params.numOfRows}&pageNo=${params.pageNo}&sidoName=${params.sidoName}&ver=${params.ver}`
       )
       .then((response) => {
+        // console.log(response)
+        // console.log(response.data.response.body.items)
         setitems(response.data.response.body.items);
+        console.log(items);
       })
       .catch((error) => {
         console.log(error);
       });
-  };
+  }, []);
 
-  const geolocation = () => {
-    const onGeoOk = (position) => {
+  const callback = useCallback(
+    (result, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        setcurrentLocation(result[0].region_1depth_name.slice(0, 2));
+        setdongName(result[0].region_3depth_name);
+        kakaoPositionSearch(
+          result[0].region_1depth_name.slice(0, 2),
+          result[0].region_3depth_name
+        );
+      }
+    },
+    [kakaoPositionSearch]
+  );
+
+  // 유저 현위치 값 성공
+  const onGeoOk = useCallback(
+    (position) => {
       const { latitude, longitude } = position.coords;
       settLocation({
         latitude,
         longitude,
       });
-    };
-    const onGeoError = () => {
-      console.log("tqtq");
-    };
-    navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
-  };
-  //kakao address
-  var geocoder = new kakao.maps.services.Geocoder();
+      geocoder.coord2RegionCode(longitude, latitude, callback);
+      // kakaoPositionSearch(latitude,longitude)
+    },
+    [callback]
+  );
 
-  var callback = function (result, status) {
-    if (status === kakao.maps.services.Status.OK) {
-      setcurrentLocation(result[0].region_1depth_name.slice(0, 2));
-      setdongName(result[0].region_3depth_name);
-    }
+  // 유저 현위치 값 실패 (오류처리)
+  const onGeoError = () => {
+    settLocation(null);
   };
-  geocoder.coord2RegionCode(location.longitude, location.latitude, callback);
+
+  // 렌더링 된 후 유저의 현위치 값을 가져온다.
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+  }, [onGeoOk]);
 
   const all = items.map((a, i) => {
-    if (a.stationName == menu) {
+    if (a.stationName === menu) {
       return (
         <Container>
           <div key={Math.floor(Math.random() * 100000)}>
@@ -105,7 +119,7 @@ function MyLocation() {
           </div>
         </Container>
       );
-    } else if (menu == null) {
+    } else if (menu == "전체") {
       return (
         <Container>
           <div key={Math.floor(Math.random() * 100000)}>
@@ -146,29 +160,27 @@ function MyLocation() {
       );
     }
   });
-  //select dong
-  let lestation = [];
-
-  {
-    items.map((a) => {
-      {
-        a.sidoName == currentLocation && lestation.push(a.stationName);
-      }
-    });
-  }
 
   return (
     <div>
-      <select>
-        <option value="동이름">{currentLocation}</option>
-      </select>
-
-      <select onChange={selectoption}>
-        {lestation.map((item) => (
-          <option key={item.stationName}>{item}</option>
-        ))}
-      </select>
-      {all}
+      {items.length > 0 ? (
+        <>
+          <select>
+            <option value="동이름">{currentLocation}</option>
+          </select>
+          <select onChange={selectoption}>
+            <option value="전체">전체</option>
+            {items.map((item) => (
+              <option value={item.stationName}>
+                <p>{item.stationName}</p>
+              </option>
+            ))}
+          </select>
+        </>
+      ) : (
+        <p>로딩바</p>
+      )}
+      <div> {all}</div>
     </div>
   );
 }

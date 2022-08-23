@@ -8,7 +8,7 @@ import BookMark from "./BookMark";
 function Card() {
   let [items, setitems] = useState([]);
   let [menu, setmenu] = useState("전국");
-
+  const navigate = useNavigate();
   useEffect(() => {
     search();
   }, []);
@@ -18,7 +18,7 @@ function Card() {
       serviceKey:
         "9cmNfRnvaOrobZwNoLxFPSrb2VW7xsR7ZGFhTGcMw38y2KaES2xSem4QwOPAH4UKP8DhCFEyoE59IDyqnSUgNQ%3D%3D",
       returnType: "json",
-      numOfRows: 15000,
+      numOfRows: 100,
       pageNo: 1,
       sidoName: `${menu}`,
       ver: 1.0,
@@ -36,10 +36,8 @@ function Card() {
       });
   };
 
-  const navigate = useNavigate();
-
   let [countstar, setcountstar] = useState([""]);
-  let [selectsidoName, selectsetsidoName] = useState();
+  console.log(countstar);
 
   const all = items.map((a, i) => {
     if (menu == "전국") {
