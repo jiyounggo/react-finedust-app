@@ -3,19 +3,40 @@ import axios from "axios";
 import { GetDatas } from "../api/data";
 import { useEffect } from "react";
 import SelecBar from "../SelectBar.js";
+import { useSelector, useDispatch } from "react-redux";
+import { removeStar } from "../redux/favorite.js";
+function BookMark() {
+  let [countstar, setcountstar] = useState([false]);
+  console.log(countstar);
+  let state = useSelector((state) => {
+    console.log(state.favorite);
+    return state.favorite;
+  });
+  let dispatch = useDispatch();
 
-async function BookMark() {
-  const [dataList, setDataList] = useState("");
-  const [sido, setsido] = useState("서울");
-  console.log(sido);
-  const data = await GetDatas(sido);
-  console.log(data);
-
-  return (
-    <div>
-      <SelecBar />
-    </div>
-  );
+  const item = state.map((a, i) => {
+    if (a.star) {
+      return (
+        <div key={Math.floor(Math.random() * 100000)}>
+          <p>{a.stationName}</p>
+          <button
+            onClick={() => {
+              let copy = [...countstar];
+              copy[i] = !copy[i];
+              setcountstar(copy);
+              dispatch(removeStar(i));
+            }}
+          >
+            {a.star ? <p>★</p> : <p>☆</p>}
+          </button>
+          <p>{a.star}</p>
+        </div>
+      );
+    } else if (a.star == false) {
+      return null;
+    }
+  });
+  return <div>{item}</div>;
 }
 
 export default BookMark;

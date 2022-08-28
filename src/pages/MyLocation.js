@@ -8,9 +8,10 @@ function MyLocation() {
   const [location, settLocation] = useState("");
   const [currentLocation, setcurrentLocation] = useState(""); //현재 지역
   const [dongName, setdongName] = useState(""); // 동
+  const [stationName, setStationName] = useState([]);
   const [items, setitems] = useState([]);
   const [menu, setmenu] = useState("전체");
-
+  const [nullMsg, setMsg] = useState(`${dongName}과 관련된 데이터가 없습니다`);
   const selectoption = (e) => {
     setmenu(e.target.value);
     console.log(menu);
@@ -65,7 +66,6 @@ function MyLocation() {
         longitude,
       });
       geocoder.coord2RegionCode(longitude, latitude, callback);
-      // kakaoPositionSearch(latitude,longitude)
     },
     [callback]
   );
@@ -161,18 +161,26 @@ function MyLocation() {
     }
   });
 
+  let les = [];
+  {
+    items.map((item) => les.push(item.stationName));
+  }
+  console.log(les);
+
   return (
     <div>
       {items.length > 0 ? (
         <>
           <select>
-            <option value="동이름">{currentLocation}</option>
+            <option value="시이름">{currentLocation}</option>
           </select>
+
           <select onChange={selectoption}>
+            {les.indexOf(dongName) == -1 ? null : <option> {dongName}</option>}
             <option value="전체">전체</option>
-            {items.map((item) => (
-              <option value={item.stationName}>
-                <p>{item.stationName}</p>
+            {les.map((item) => (
+              <option value={item}>
+                <p>{item}</p>
               </option>
             ))}
           </select>

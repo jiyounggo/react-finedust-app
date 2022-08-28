@@ -4,11 +4,18 @@ import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import SelecBar from "../SelectBar";
-import BookMark from "./BookMark";
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../redux/favorite.js";
 function Card() {
   let [items, setitems] = useState([]);
   let [menu, setmenu] = useState("전국");
-  const navigate = useNavigate();
+
+  let state = useSelector((state) => {
+    console.log(state.favorite);
+    return state.favorite;
+  });
+  let dispatch = useDispatch();
+
   useEffect(() => {
     search();
   }, []);
@@ -36,7 +43,7 @@ function Card() {
       });
   };
 
-  let [countstar, setcountstar] = useState([""]);
+  let [countstar, setcountstar] = useState([false]);
   console.log(countstar);
 
   const all = items.map((a, i) => {
@@ -53,6 +60,23 @@ function Card() {
                       let copy = [...countstar];
                       copy[i] = !copy[i];
                       setcountstar(copy);
+                      let dupValue = state.findIndex((item) => {
+                        return item.stationName === a.stationName;
+                      });
+
+                      {
+                        dupValue === -1 &&
+                          dispatch(
+                            addItem({
+                              stationName: a.stationName,
+                              sidoName: a.sidoName,
+                              star: !countstar[i],
+                              sido: a.pm10Grade,
+                              time: a.dataTime,
+                              pm10Grade: a.pm10Grade,
+                            })
+                          );
+                      }
                     }}
                   >
                     {countstar[i] ? <p>★</p> : <p>☆</p>}
@@ -60,7 +84,6 @@ function Card() {
                   </button>
                 </div>
                 <p>{a.sidoName}</p>
-
                 <p>{a.dataTime}</p>
                 <img src="./좋음.png" style={{ width: "20px" }} />
                 <p>좋음</p>
@@ -74,6 +97,22 @@ function Card() {
                       let copy = [...countstar];
                       copy[i] = !copy[i];
                       setcountstar(copy);
+                      let dupValue = state.findIndex((item) => {
+                        return item.stationName === a.stationName;
+                      });
+
+                      {
+                        dupValue === -1 &&
+                          dispatch(
+                            addItem({
+                              stationName: a.stationName,
+                              sidoName: a.sidoName,
+                              star: !countstar[i],
+                              sido: a.pm10Grade,
+                              time: a.dataTime,
+                            })
+                          );
+                      }
                     }}
                   >
                     {countstar[i] ? <p>★</p> : <p>☆</p>}
