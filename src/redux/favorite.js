@@ -7,6 +7,7 @@ let favorite = createSlice({
     addItem(state, action) {
       state.push(action.payload);
     },
+
     removeStar(state, action) {
       state[action.payload].star = false;
     },
