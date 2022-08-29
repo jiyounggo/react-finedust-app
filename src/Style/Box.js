@@ -3,6 +3,12 @@ import styled from "@emotion/styled";
 const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
+  img {
+    width: 100px;
+  }
+  p {
+    color: white;
+  }
   .bgcolor1 {
     border-radius: 10px;
     padding: 10px;
@@ -24,22 +30,36 @@ const Container = styled.div`
   .header {
     display: flex;
     justify-content: flex-end;
-    height: 70px;
+    height: 50px;
   }
 
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .stationName {
+    display: flex;
+    margin-top: 10px;
+    p {
+      font-size: 20px;
+      margin: 0 10px;
+    }
+  }
+  .stateTxt {
+    margin-top: 10px;
+  }
   select {
     margin: 0 auto;
     background-color: black;
   }
 
   button {
-    display: flex;
-    justify-content: flex-end;
     border: none;
-    padding-bottom: 5px;
     background-color: transparent;
     p {
-      font-size: 50px;
+      margin: 0;
+      font-size: 40px;
     }
   }
 `;

@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../redux/favorite.js";
 import Loading from "../elements/Loading";
 import styled from "@emotion/styled";
-import Box from "../components/Box";
 
 function Card() {
   let [items, setitems] = useState([]);
@@ -93,11 +92,15 @@ function Card() {
                     {countstar[i]}
                   </button>
                 </div>
-                <p>{a.stationName}</p>
-                <p>{a.sidoName}</p>
-                <p>{a.dataTime}</p>
-                <img src={imgA} style={{ width: "20px" }} />
-                <p>좋음</p>
+                <div className="top">
+                  <div className="stationName">
+                    <p>{a.stationName}</p>
+                    <p>{a.sidoName}</p>
+                  </div>
+                  <p>{a.dataTime}</p>
+                  <img src={imgA} />
+                  <p className="stateTxt">좋음</p>
+                </div>
               </div>
             ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
               <div className="bgcolor2">
@@ -111,11 +114,15 @@ function Card() {
                     {countstar[i]}
                   </button>
                 </div>
-                <p>{a.stationName}</p>
-                <p>{a.sidoName}</p>
-                <p>{a.dataTime}</p>
-                <img src={imgB} style={{ width: "20px" }} />
-                <p>보통</p>
+                <div className="top">
+                  <div className="stationName">
+                    <p>{a.stationName}</p>
+                    <p>{a.sidoName}</p>
+                  </div>
+                  <p>{a.dataTime}</p>
+                  <img src={imgB} />
+                  <p className="stateTxt">좋음</p>
+                </div>
               </div>
             ) : (
               <div className="bgcolor3">
@@ -129,11 +136,15 @@ function Card() {
                     {countstar[i]}
                   </button>
                 </div>
-                <p>{a.stationName}</p>
-                <p>{a.sidoName}</p>
-                <p>{a.dataTime}</p>
-                <img src={imgC} style={{ width: "20px" }} />
-                <p>나쁨</p>
+                <div className="top">
+                  <div className="stationName">
+                    <p>{a.stationName}</p>
+                    <p>{a.sidoName}</p>
+                  </div>
+                  <p>{a.dataTime}</p>
+                  <img src={imgC} />
+                  <p className="stateTxt">좋음</p>
+                </div>
               </div>
             )}
           </div>
@@ -158,7 +169,7 @@ function Card() {
                 </div>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src={imgA} style={{ width: "20px" }} />
+                <img src={imgA} />
                 <p>좋음</p>
               </div>
             ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
@@ -176,7 +187,7 @@ function Card() {
                 </div>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src={imgB} style={{ width: "20px" }} />
+                <img src={imgB} />
                 <p>보통</p>
               </div>
             ) : (
@@ -194,7 +205,7 @@ function Card() {
                 </div>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src={imgC} style={{ width: "20px" }} />
+                <img src={imgC} />
                 <p>나쁨</p>
               </div>
             )}

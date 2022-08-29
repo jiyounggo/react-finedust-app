@@ -9,9 +9,10 @@ function Tab() {
 
   return (
     <Tabs>
-      <Nav variant="tabs" defaultActiveKey="link0">
-        <Nav.Item>
+      <Nav variant="tabs" defaultActiveKey="link0" className="nav">
+        <Nav.Item className="navItems">
           <Nav.Link
+            className="navItem"
             eventKey="link0"
             onClick={() => {
               탭변경(0);
@@ -20,8 +21,9 @@ function Tab() {
             내지역보기
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
+        <Nav.Item className="navItems">
           <Nav.Link
+            className="navItem"
             eventKey="link1"
             onClick={() => {
               탭변경(1);
@@ -30,9 +32,10 @@ function Tab() {
             전체시도보기
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
+        <Nav.Item className="navItems">
           <Nav.Link
-            eventKey="link1"
+            className="navItem"
+            eventKey="link2"
             onClick={() => {
               탭변경(2);
             }}
@@ -59,6 +62,19 @@ function Tabcontent(props) {
     return <BookMark />;
   }
 }
-const Tabs = styled.div``;
+const Tabs = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+
+  .nav {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 650px;
+  }
+  .navItem {
+    padding: 20px 50px;
+  }
+`;
 
 export default Tab;
