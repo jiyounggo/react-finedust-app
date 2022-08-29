@@ -1,12 +1,17 @@
 import axios from "axios";
 
 import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
-
-import SelecBar from "../components/SelectBar";
+import { Container } from "../Style/Box";
+import imgA from "../images/좋음.png";
+import imgB from "../images/보통.png";
+import imgC from "../images/나쁨.png";
+import SelecBar from "../elements/SelectBar";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../redux/favorite.js";
-import Loading from "../components/Loading";
+import Loading from "../elements/Loading";
+import styled from "@emotion/styled";
+import Box from "../components/Box";
+
 function Card() {
   let [items, setitems] = useState([]);
   let [menu, setmenu] = useState("전국");
@@ -46,10 +51,13 @@ function Card() {
 
   //즐겨찾기 추가
   let [countstar, setcountstar] = useState([false]);
+
   let changeStar = (a, i) => {
     let copy = [...countstar];
     copy[i] = !copy[i];
     setcountstar(copy);
+
+    //즐겨찾기 중복 검사
     let dupValue = state.findIndex((item) => {
       return item.stationName === a.stationName;
     });
@@ -76,7 +84,6 @@ function Card() {
             {a.pm10Grade === "1" ? (
               <div className="bgcolor1">
                 <div className="header">
-                  <p>{a.stationName}</p>
                   <button
                     onClick={() => {
                       changeStar(a, i);
@@ -86,15 +93,15 @@ function Card() {
                     {countstar[i]}
                   </button>
                 </div>
+                <p>{a.stationName}</p>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src="./좋음.png" style={{ width: "20px" }} />
+                <img src={imgA} style={{ width: "20px" }} />
                 <p>좋음</p>
               </div>
             ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
               <div className="bgcolor2">
                 <div className="header">
-                  <p>{a.stationName}</p>
                   <button
                     onClick={() => {
                       changeStar(a, i);
@@ -104,15 +111,15 @@ function Card() {
                     {countstar[i]}
                   </button>
                 </div>
+                <p>{a.stationName}</p>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src="./보통.png" style={{ width: "20px" }} />
+                <img src={imgB} style={{ width: "20px" }} />
                 <p>보통</p>
               </div>
             ) : (
               <div className="bgcolor3">
                 <div className="header">
-                  <p>{a.stationName}</p>
                   <button
                     onClick={() => {
                       changeStar(a, i);
@@ -122,9 +129,10 @@ function Card() {
                     {countstar[i]}
                   </button>
                 </div>
+                <p>{a.stationName}</p>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src="./나쁨.png" style={{ width: "20px" }} />
+                <img src={imgC} style={{ width: "20px" }} />
                 <p>나쁨</p>
               </div>
             )}
@@ -138,7 +146,6 @@ function Card() {
             {a.pm10Grade === "1" ? (
               <div className="bgcolor1">
                 <div className="header">
-                  <p>{a.stationName}</p>
                   <button
                     onClick={() => {
                       changeStar(a, i);
@@ -147,16 +154,16 @@ function Card() {
                     {countstar[i] ? <p>★</p> : <p>☆</p>}
                     {countstar[i]}
                   </button>
+                  <p>{a.stationName}</p>
                 </div>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src="./좋음.png" style={{ width: "20px" }} />
+                <img src={imgA} style={{ width: "20px" }} />
                 <p>좋음</p>
               </div>
             ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
               <div className="bgcolor2">
                 <div className="header">
-                  <p>{a.stationName}</p>
                   <button
                     onClick={() => {
                       changeStar(a, i);
@@ -165,16 +172,16 @@ function Card() {
                     {countstar[i] ? <p>★</p> : <p>☆</p>}
                     {countstar[i]}
                   </button>
+                  <p>{a.stationName}</p>
                 </div>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src="./보통.png" style={{ width: "20px" }} />
+                <img src={imgB} style={{ width: "20px" }} />
                 <p>보통</p>
               </div>
             ) : (
               <div className="bgcolor3">
                 <div className="header">
-                  <p>{a.stationName}</p>
                   <button
                     onClick={() => {
                       changeStar(a, i);
@@ -183,10 +190,11 @@ function Card() {
                     {countstar[i] ? <p>★</p> : <p>☆</p>}
                     {countstar[i]}
                   </button>
+                  <p>{a.stationName}</p>
                 </div>
                 <p>{a.sidoName}</p>
                 <p>{a.dataTime}</p>
-                <img src="./나쁨.png" style={{ width: "20px" }} />
+                <img src={imgC} style={{ width: "20px" }} />
                 <p>나쁨</p>
               </div>
             )}
@@ -196,32 +204,25 @@ function Card() {
     }
   });
   return (
-    <div>
-      <SelecBar search={search} setmenu={setmenu} />
-      {flag ? all : <Loading />}
-    </div>
+    <Select>
+      {flag ? (
+        <div>
+          <div className="slectBar">
+            <SelecBar search={search} setmenu={setmenu} />
+          </div>
+          {all}
+        </div>
+      ) : (
+        <Loading />
+      )}
+    </Select>
   );
 }
-
-export default Card;
-
-const Container = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  li {
-    border: 1px solid black;
-  }
-  .bgcolor1 {
-    background-color: green;
-  }
-
-  .header {
+const Select = styled.div`
+  .slectBar {
     display: flex;
-  }
-  .bgcolor2 {
-    background-color: yellow;
-  }
-  .bgcolor3 {
-    background-color: red;
+    justify-content: center;
+    margin: 30px;
   }
 `;
+export default Card;

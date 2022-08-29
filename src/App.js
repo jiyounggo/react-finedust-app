@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import Tab from "./components/Tab.js";
+import Tab from "./elements/Tab.js";
 import Login from "./pages/Login";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "./redux/user";
@@ -21,16 +21,13 @@ function App() {
     );
   }, []);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
   return (
-    <div>
-      <Tab></Tab>
+    <>
       <Routes>
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/" element={<Tab />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
-    </div>
+    </>
   );
 }
 const Footer = styled.div`
