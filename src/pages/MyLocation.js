@@ -2,6 +2,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
+import Loading from "../components/Loading";
+
 const geocoder = new kakao.maps.services.Geocoder();
 
 function MyLocation() {
@@ -11,10 +13,9 @@ function MyLocation() {
   const [stationName, setStationName] = useState([]);
   const [items, setitems] = useState([]);
   const [menu, setmenu] = useState("전체");
-  const [nullMsg, setMsg] = useState(`${dongName}과 관련된 데이터가 없습니다`);
+
   const selectoption = (e) => {
     setmenu(e.target.value);
-    console.log(menu);
   };
 
   // kakao address
@@ -176,7 +177,7 @@ function MyLocation() {
           </select>
 
           <select onChange={selectoption}>
-            {les.indexOf(dongName) == -1 ? null : <option> {dongName}</option>}
+            {/* {les.indexOf(dongName) == -1 ? null : <option> {dongName}</option>} */}
             <option value="전체">전체</option>
             {les.map((item) => (
               <option value={item}>
@@ -186,7 +187,7 @@ function MyLocation() {
           </select>
         </>
       ) : (
-        <p>로딩바</p>
+        <Loading />
       )}
       <div> {all}</div>
     </div>

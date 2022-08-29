@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Nav } from "react-bootstrap";
-import AllLocation from "./pages/AllLocation";
-import BookMark from "./pages/BookMark";
-import MyLocation from "./pages/MyLocation";
+import AllLocation from "../pages/AllLocation";
+import BookMark from "../pages/BookMark";
+import MyLocation from "../pages/MyLocation";
 function Tab() {
   let [탭, 탭변경] = useState(0);
 

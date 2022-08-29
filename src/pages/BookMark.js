@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { GetDatas } from "../api/data";
-import { useEffect } from "react";
-import SelecBar from "../SelectBar.js";
 import { useSelector, useDispatch } from "react-redux";
 import { removeStar } from "../redux/favorite.js";
+
 function BookMark() {
   let [countstar, setcountstar] = useState([false]);
   console.log(countstar);

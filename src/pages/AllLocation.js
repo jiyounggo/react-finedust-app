@@ -1,17 +1,17 @@
 import axios from "axios";
-import { Routes, Route } from "react-router-dom";
-import { Suspense, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
-import SelecBar from "../SelectBar";
+
+import SelecBar from "../components/SelectBar";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../redux/favorite.js";
+import Loading from "../components/Loading";
 function Card() {
   let [items, setitems] = useState([]);
   let [menu, setmenu] = useState("전국");
   let [flag, setFlag] = useState(false);
   let state = useSelector((state) => {
-    console.log(state.favorite);
     return state.favorite;
   });
   let dispatch = useDispatch();
@@ -198,7 +198,7 @@ function Card() {
   return (
     <div>
       <SelecBar search={search} setmenu={setmenu} />
-      {flag ? all : <div>로딩중</div>}
+      {flag ? all : <Loading />}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
-import Tab from "./Tab.js";
+import Tab from "./components/Tab.js";
 import Login from "./pages/Login";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "./redux/user";
