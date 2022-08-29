@@ -1,9 +1,10 @@
 /*global kakao*/
 import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import Loading from "../elements/Loading";
+import { Container } from "../Style/Box";
 import styled from "@emotion/styled";
-import Loading from "../components/Loading";
-
+import Box from "../components/Box";
 const geocoder = new kakao.maps.services.Geocoder();
 
 function MyLocation() {
@@ -81,103 +82,28 @@ function MyLocation() {
     navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
   }, [onGeoOk]);
 
-  const all = items.map((a, i) => {
+  const all = items.map((a) => {
     if (a.stationName === menu) {
-      return (
-        <Container>
-          <div key={Math.floor(Math.random() * 100000)}>
-            {a.pm10Grade === "1" ? (
-              <div className="bgcolor1">
-                <div className="header">
-                  <p>{a.stationName}</p>
-                </div>
-                <p>{a.sidoName}</p>
-                <p>{a.dataTime}</p>
-                <img src="./좋음.png" style={{ width: "20px" }} />
-                <p>좋음</p>
-              </div>
-            ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
-              <div className="bgcolor2">
-                <div className="header">
-                  <p>{a.stationName}</p>
-                </div>
-                <p>{a.sidoName}</p>
-                <p>{a.dataTime}</p>
-                <img src="./보통.png" style={{ width: "20px" }} />
-                <p>보통</p>
-              </div>
-            ) : (
-              <div className="bgcolor3">
-                <div className="header">
-                  <p>{a.stationName}</p>
-                </div>
-                <p>{a.sidoName}</p>
-                <p>{a.dataTime}</p>
-                <img src="./나쁨.png" style={{ width: "20px" }} />
-                <p>나쁨</p>
-              </div>
-            )}
-          </div>
-        </Container>
-      );
+      return <Container>{Box(a)}</Container>;
     } else if (menu == "전체") {
-      return (
-        <Container>
-          <div key={Math.floor(Math.random() * 100000)}>
-            {a.pm10Grade === "1" ? (
-              <div className="bgcolor1">
-                <div className="header">
-                  <p>{a.stationName}</p>
-                </div>
-                <p>{a.sidoName}</p>
-
-                <p>{a.dataTime}</p>
-                <img src="./좋음.png" style={{ width: "20px" }} />
-                <p>좋음</p>
-              </div>
-            ) : a.pm10Grade === "2" || a.pm10Grade === "3" ? (
-              <div className="bgcolor2">
-                <div className="header">
-                  <p>{a.stationName}</p>
-                </div>
-                <p>{a.sidoName}</p>
-                <p>{a.dataTime}</p>
-                <img src="./보통.png" style={{ width: "20px" }} />
-                <p>보통</p>
-              </div>
-            ) : (
-              <div className="bgcolor3">
-                <div className="header">
-                  <p>{a.stationName}</p>
-                </div>
-                <p>{a.sidoName}</p>
-                <p>{a.dataTime}</p>
-                <img src="./나쁨.png" style={{ width: "20px" }} />
-                <p>나쁨</p>
-              </div>
-            )}
-          </div>
-        </Container>
-      );
+      return <Container>{Box(a)}</Container>;
     }
   });
 
+  //select bar 선택
   let les = [];
   {
     items.map((item) => les.push(item.stationName));
   }
-  console.log(les);
 
   return (
-    <div>
+    <Select>
       {items.length > 0 ? (
-        <>
+        <div className="slectBar">
           <select>
             <option value="시이름">{currentLocation}</option>
           </select>
-
           <select onChange={selectoption}>
-            {/* {les.indexOf(dongName) == -1 ? null : <option> {dongName}</option>} */}
             <option value="전체">전체</option>
             {les.map((item) => (
               <option value={item}>
@@ -185,33 +111,20 @@ function MyLocation() {
               </option>
             ))}
           </select>
-        </>
+        </div>
       ) : (
         <Loading />
       )}
       <div> {all}</div>
-    </div>
+    </Select>
   );
 }
-const Container = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
-  li {
-    border: 1px solid black;
-  }
-  .bgcolor1 {
-    background-color: green;
-  }
 
-  .header {
+const Select = styled.div`
+  .slectBar {
     display: flex;
-  }
-  .bgcolor2 {
-    background-color: yellow;
-  }
-  .bgcolor3 {
-    background-color: red;
+    justify-content: center;
+    margin: 30px;
   }
 `;
-
 export default MyLocation;
