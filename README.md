@@ -17,7 +17,8 @@
 - 기간 : 22년 08월 10일 ~ 22년 8월 15일 (약 5일)
 
 ## 기술스택
-
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
+<img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/>
 <img src="https://img.shields.io/badge/emotion-ff69b4"/>
  
 </details>
