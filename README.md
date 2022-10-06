@@ -21,7 +21,6 @@
 ## 기술스택
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/> <img src="https://img.shields.io/badge/emotion-ff69b4"/>
  
-</details>
 
 <br>
 
@@ -37,3 +36,10 @@
 4. 즐겨찾기를 해제하는 기능
 5. 지역의 미세먼지 수치에 따라 화면에 표시되는 색/아이콘 등이 달라지는 기능
 6. 원하는 지역을 선택해서 볼 수 있는 기능
+
+<br>
+
+## 데모영상
+
+![finedustapp](https://user-images.githubusercontent.com/103088450/194219011-55a980c1-e51c-4cfb-bb38-b774a9d782db.gif)
+
