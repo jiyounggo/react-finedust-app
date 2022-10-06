@@ -16,7 +16,10 @@
 - 공공데이터API(미세먼지) 활용하여 내지역과 각 지역의 미세먼지 수치를 확인할 수 있다.
 - 기간 : 22년 08월 10일 ~ 22년 8월 15일 (약 5일)
 
+## 기술스택
 
+<img src="https://img.shields.io/badge/emotion-ff69b4"/>
+ 
 </details>
 
 <br>
@@ -27,15 +30,12 @@
 
 ## 프로젝트 기능 구현
 
-1. Carousel(슬라이드 배너), 동적 이미지와 선택지가 담긴 alert - https://jssq2468.tistory.com/102 (클릭시 기능별 포스팅 링크로 이동합니다)
-![slider](https://user-images.githubusercontent.com/103088450/193758296-a9fff752-7b17-4089-80db-123ab514c9c0.gif)
 
-
-3. Firebase, Redux 를 이용한 로그인 구현(axios로 API 통신)
-<img width="315" alt="login" src="https://user-images.githubusercontent.com/103088450/193757578-c6ab82c8-0954-43d3-b75a-4dba5bcd3f01.png">
-
-<br>
-
-3. 장바구니 기능 구현
-![cart](https://user-images.githubusercontent.com/103088450/193758675-c222f047-0de9-4949-abc8-68f380ed286a.gif)
+• 로그인 기능 및 회원가입 기능. 회원가입 시 사용자의 지역정보를 받아서 저장
+• 로그인하면, 사용자의 지역정보를 토대로, 해당 지역의 미세먼지 정보 표시
+• 사용자가 입력한 기본 지역을 변경하는 기능
+• 특정 지역을 즐겨찾기에 등록하는 기능
+• 즐겨찾기 해놓은 지역들의 정보만 모아보는 기능
+• 즐겨찾기를 해제하는 기능
+• 지역의 미세먼지 수치에 따라 화면에 표시되는 색/아이콘 등이 달라지는 기능
 
